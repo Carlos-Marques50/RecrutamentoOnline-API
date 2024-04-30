@@ -4,17 +4,22 @@ import User from "../../entity/User"
 import { UserGatewayInterface } from "../../gateways/adpters/IUser"
 import TypeError from "../../shared/TypeError";
 
-export default class UserGetAllService implements BaseService<void, (User & Model)[]>
+type Users= User & Model;
+
+export default class UserGetAllService implements BaseService<void, (User & Model)[] |TypeError >
 {
     constructor(private readonly userGateway: UserGatewayInterface){}
 
-    Execute = async () => {
+   Execute = async ():Promise<(User & Model)[] | TypeError > => {
 
         const usersResult = await this.userGateway.readAll();
 
-        // if(!usersResult) throw new TypeError("Dados não encontrados",404);
+        if (!usersResult) {
+            return new TypeError("Dados não encontrados", 404);
+        }
 
         return usersResult;
     }
+
 
 }

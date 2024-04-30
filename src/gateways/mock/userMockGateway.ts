@@ -9,18 +9,22 @@ export class UserMockGateway implements UserGatewayInterface {
     private users: Users[] =  [];
 
     constructor(url: string) {
-
-        fetch(`${url}/users`)
-        .then(res => res.json())
-        .then(data => {
-            this.users = data as Users[]
-        });
-
+        this.init(url);
     }
 
-    async test(): Promise<void> {
-        
+    private async init(url: string): Promise<void> {
+        try {
+
+            const res = await fetch(`${url}/users`);
+            const data = await res.json() as { users: [] };
+            this.users = data.users as Users[];
+
+        } catch (error) {
+            console.error("Erro ao inicializar usuários:", error);
+        }
     }
+
+    async test(): Promise<void>{}
     
     async update(params: { [key: string]: any; }): Promise<User> {
         return this.users[0]
@@ -30,11 +34,16 @@ export class UserMockGateway implements UserGatewayInterface {
         return this.users[0]
     }
 
-    async readOne(id: number): Promise<User & BaseModel> {
-        return this.users[0]
+    async readOne(id: number): Promise<User & BaseModel | false> {
+       
+        var userResult = this.users.find(user => user.id === id);
+
+        if(!userResult) return false;
+
+        return userResult;
     }
     
-    readAll= async(): Promise<(User & BaseModel)[]> => {
+    readAll= async(): Promise<(User & BaseModel)[] > => {
         return this.users;
     }
 

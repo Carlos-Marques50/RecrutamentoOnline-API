@@ -2,17 +2,19 @@ import { BaseService } from "../../base/service.base";
 import User from "../../entity/User";
 import Model from "../../base/model.base"
 import { UserGatewayInterface } from "../../gateways/adpters/IUser";
+import TypeError from "../../shared/TypeError";
 
 export default class UserGetOne implements BaseService<number, (User & Model) | TypeError>{
 
     constructor(private readonly userGateway: UserGatewayInterface ){}
 
-    Execute = async (id: number) => {
+    Execute = async (id: number):Promise<(User & Model) | TypeError > => {
 
-       return await this.userGateway.readOne(id);
-
+        if(isNaN(id) || id== null) return new TypeError("ID do Usuario não é valido",400);
+        
+        const userResult= await this.userGateway.readOne(id);
+        if(!userResult) return new TypeError("Usuario não encontrado", 404);
+        return userResult
     }
+    
 }
-
-
-
