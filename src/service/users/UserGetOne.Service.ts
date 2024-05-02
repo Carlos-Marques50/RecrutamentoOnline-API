@@ -1,14 +1,14 @@
 import { BaseService } from "../../base/service.base";
 import User from "../../entity/User";
 import Model from "../../base/model.base"
-import { UserGatewayInterface } from "../../gateways/adpters/IUser";
+import { UserGatewayInterface } from "../../gateways/adpters/Users/IUser";
 import TypeError from "../../shared/TypeError";
 
 export default class UserGetOne implements BaseService<number, (User & Model) | TypeError>{
 
     constructor(private readonly userGateway: UserGatewayInterface ){}
 
-    Execute = async (id: number):Promise<(User & Model) | TypeError > => {
+    public Execute = async (id: number):Promise<(User & Model) | TypeError > => {
 
         if(isNaN(id) || id== null) return new TypeError("ID do Usuario não é valido",400);
         

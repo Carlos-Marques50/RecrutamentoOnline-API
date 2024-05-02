@@ -1,24 +1,33 @@
 {
-  "name": "recrutamentoonline",
-  "version": "1.0.0",
-  "description": "Sistema de gerenciamento de cadidatos",
-  "main": "index.js",
-  "scripts": {
-    "start": "nodemon ./src/index.ts",
-    "dev": "nodemon --exec ts-node ./src/index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Carlos Marques",
-  "license": "MIT",
-  "dependencies": {
-    "@types/axios": "^0.14.0",
-    "@types/express": "^4.17.21",
-    "@types/yup": "^0.32.0",
-    "axios": "^1.6.8",
-    "express": "^4.19.2",
-    "nodemon": "^3.1.0",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.4.5",
-    "yup": "^1.4.0"
-  }
+   "name": "recrutamentoonline",
+   "version": "1.0.0",
+   "description": "Sistema de gerenciamento de cadidatos",
+   "main": "index.js",
+   "scripts": {
+      "start": "ts-node src/index.ts",
+      "dev": "nodemon --exec ts-node ./src/index.ts",
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "typeorm": "typeorm-ts-node-commonjs"
+   },
+   "author": "Carlos Marques",
+   "license": "MIT",
+   "dependencies": {
+      "@types/axios": "^0.14.0",
+      "@types/express": "^4.17.21",
+      "@types/yup": "^0.32.0",
+      "axios": "^1.6.8",
+      "express": "^4.19.2",
+      "mysql": "^2.14.1",
+      "nodemon": "^3.1.0",
+      "ts-node": "^10.9.2",
+      "typeorm": "0.3.20",
+      "typescript": "^5.4.5",
+      "yup": "^1.4.0",
+      "reflect-metadata": "^0.1.13"
+   },
+   "devDependencies": {
+      "ts-node": "10.9.1",
+      "@types/node": "^16.11.10",
+      "typescript": "4.5.2"
+   }
 }

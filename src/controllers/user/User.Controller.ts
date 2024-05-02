@@ -29,8 +29,6 @@ export class UserControlle implements controller_base
        
         const id = Number(req.params.id);
 
-        console.log(id);
-        
         const serviceResult= await this.GetOneService.Execute(id);
         if(serviceResult instanceof TypeError){
             return res.status(serviceResult.status).json({mensagem:serviceResult.message});
@@ -38,6 +36,7 @@ export class UserControlle implements controller_base
         return res.status(200).json(serviceResult);
     }
 
+    
     store(req: Request<ParamsDictionary, any, any, Record<string, any>>, res: Response<any, Record<string, any>>): Promise<Response<any, Record<string, any>>> {
         throw new Error("Method not implemented.");
     }

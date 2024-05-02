@@ -1,6 +1,7 @@
 import BaseModel from "../../base/model.base";
+import { IntputDataLogin, OutputDataLogin } from "../../dto/Login.dto";
 import User from "../../entity/User";
-import { UserGatewayInterface } from "../adpters/IUser";
+import { UserGatewayInterface } from "../adpters/Users/IUser";
 
 type Users = User & BaseModel
 
@@ -25,16 +26,12 @@ export class UserMockGateway implements UserGatewayInterface {
     }
 
     async test(): Promise<void>{}
-    
-    async update(params: { [key: string]: any; }): Promise<User> {
-        return this.users[0]
+
+    public login= async(dataUser: IntputDataLogin): Promise<OutputDataLogin> => {
+        throw new Error("Method not implemented.");
     }
 
-    async store(params: User): Promise<User & BaseModel> {
-        return this.users[0]
-    }
-
-    async readOne(id: number): Promise<User & BaseModel | false> {
+    public readOne= async (id: number): Promise<User & BaseModel | false> => {
        
         var userResult = this.users.find(user => user.id === id);
 
@@ -43,11 +40,19 @@ export class UserMockGateway implements UserGatewayInterface {
         return userResult;
     }
     
-    readAll= async(): Promise<(User & BaseModel)[] > => {
+    public readAll= async(): Promise<(User & BaseModel)[] > => {
         return this.users;
     }
+    
+    public update= async (params: { [key: string]: any; }): Promise<User> => {
+        return this.users[0]
+    }
 
-    async delete(id: number): Promise<Boolean> {
+    public store =async (params: User): Promise<User & BaseModel> => {
+        return this.users[0]
+    }
+
+    public delete= async (id: number): Promise<Boolean> => {
         return true
     }
 
