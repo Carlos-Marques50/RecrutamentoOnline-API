@@ -8,7 +8,7 @@ export interface InputUserDto {
 }
 
 export interface OutputUserDto {
-  id: number;
+  id: string;
   name: string;
   email: string;
   status: boolean;

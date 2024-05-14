@@ -6,11 +6,11 @@ import TypeError from "../../shared/TypeError";
 
 type Users= User & Model;
 
-export default class UserGetAllService implements BaseService<void, (User & Model)[] |TypeError >
+export default class UserGetAllService implements BaseService<void, Users[] |TypeError >
 {
     constructor(private readonly userGateway: UserGatewayInterface){}
 
-   Execute = async ():Promise<(User & Model)[] | TypeError > => {
+   Execute = async ():Promise<Users[] | TypeError > => {
 
         const usersResult = await this.userGateway.readAll();
 

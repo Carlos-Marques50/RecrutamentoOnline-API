@@ -7,8 +7,7 @@ export interface IntputDataLogin
 
 export interface OutputDataLogin
 {   
-    id_user:number,
-    success:boolean,
+    id_user:string,
     token:string,
 }
 

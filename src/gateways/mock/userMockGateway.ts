@@ -1,59 +1,55 @@
+import axios from "axios";
 import BaseModel from "../../base/model.base";
 import { IntputDataLogin, OutputDataLogin } from "../../dto/Login.dto";
 import User from "../../entity/User";
 import { UserGatewayInterface } from "../adpters/Users/IUser";
 
-type Users = User & BaseModel
+type Users = User & BaseModel;
 
 export class UserMockGateway implements UserGatewayInterface {
+  private users: Users[] = [];
 
-    private users: Users[] =  [];
+  constructor(url: string) {
+    this.init(url);
+  }
 
-    constructor(url: string) {
-        this.init(url);
-    }
+  private async init(url: string): Promise<void> {
+    try {
+        const res = await axios.get(`${url}/users`);
+        const data = res.data as { users: Users[] };
+        this.users = data.users;
+      } catch (error) {
+        console.error("Erro ao inicializar usuários:", error);
+      }
+  }
 
-    private async init(url: string): Promise<void> {
-        try {
+  public test = async(): Promise<void> => {}
 
-            const res = await fetch(`${url}/users`);
-            const data = await res.json() as { users: [] };
-            this.users = data.users as Users[];
+  public login = async (dataUser: IntputDataLogin): Promise<OutputDataLogin> => {
+    throw new Error("Method not implemented.");
+  };
 
-        } catch (error) {
-            console.error("Erro ao inicializar usuários:", error);
-        }
-    }
+  public readOne = async (id: string): Promise<(User & BaseModel) | false> => {
+    var userResult = this.users.find((user) => user.id === id);
 
-    async test(): Promise<void>{}
+    if (!userResult) return false;
 
-    public login= async(dataUser: IntputDataLogin): Promise<OutputDataLogin> => {
-        throw new Error("Method not implemented.");
-    }
+    return userResult;
+  };
 
-    public readOne= async (id: number): Promise<User & BaseModel | false> => {
-       
-        var userResult = this.users.find(user => user.id === id);
+  public readAll = async (): Promise<(User & BaseModel)[]> => {
+    return this.users;
+  };
 
-        if(!userResult) return false;
+  public update = async (params: { [key: string]: any }): Promise<User> => {
+    return this.users[0];
+  };
 
-        return userResult;
-    }
-    
-    public readAll= async(): Promise<(User & BaseModel)[] > => {
-        return this.users;
-    }
-    
-    public update= async (params: { [key: string]: any; }): Promise<User> => {
-        return this.users[0]
-    }
+  public store = async (params: User): Promise<User & BaseModel> => {
+    return this.users[0];
+  };
 
-    public store =async (params: User): Promise<User & BaseModel> => {
-        return this.users[0]
-    }
-
-    public delete= async (id: number): Promise<Boolean> => {
-        return true
-    }
-
+  public delete = async (id: string): Promise<Boolean> => {
+    return true;
+  };
 }

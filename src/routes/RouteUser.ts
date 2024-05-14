@@ -1,24 +1,23 @@
-import {Router} from "express";
-import { UserControlle } from "../controllers/user/User.Controller";
+import { Router } from "express";
+import { UserController } from "../controllers/user/User.Controller";
 import { UserMockGateway } from "../gateways/mock/userMockGateway";
-import UserGetAllService from "../service/users/UserGetAll.service";
+import UserGetAllService from "../service/users/UserGetAll.Service";
 import UserGetOne from "../service/users/UserGetOne.Service";
+import { UserDataBase } from "../gateways/DataBase/prisma/geteway/users";
 
-const RouteUser= Router();
+const RouteUser = Router();
 
-const gatewayData = new UserMockGateway("http://localhost:3001")//Injection in Data
+const gatewayData = new UserDataBase() //Injection in Data
 
 const GetAllServiceInjection = new UserGetAllService(gatewayData);
-const GetOneServiceInjection= new UserGetOne(gatewayData);
+const GetOneServiceInjection = new UserGetOne(gatewayData);
 
-const userController = 
-new UserControlle(
-    GetAllServiceInjection,
-    GetOneServiceInjection
+const userController = new UserController(
+  GetAllServiceInjection,
+  GetOneServiceInjection
 );
 
 RouteUser.get("/all", userController.getAll);
 RouteUser.get("/:id", userController.getOne);
-
 
 export default RouteUser;

@@ -1,52 +1,19 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  OneToMany,
-  CreateDateColumn,
-  UpdateDateColumn,
-} from "typeorm";
 import User from "./User";
+import Address from "./Address";
 
-@Entity("companies")
 export default class Empresa {
-  @PrimaryGeneratedColumn("increment")
-  public id!: number;
-
-  @Column({ type: "varchar", length: 255, nullable: false })
+  public id?: string;
   public name: string;
-
-  @Column({ type: "decimal", nullable: false, unique: true })
   public phone: number;
-
-  @Column({ type: "varchar", length: 100, nullable: false, unique: true })
   public nif: string;
-
-  @Column({ type: "varchar", length: 255, nullable: false, unique: true })
   public email: string;
-
-  @Column({ type: "varchar", length: 255, nullable: true, unique: true })
   public logo_img: string;
+  public users?: User[];
+  public address: Address;
+  public createdDate?: Date;
+  public updatedDate?: Date;
 
-  @OneToMany(() => User, (user) => user.company)
-  public users!: User[];
-
-  @CreateDateColumn()
-  public createdDate!: Date;
-
-  @UpdateDateColumn()
-  public updatedDate!: Date;
- 
-  constructor(
-    name: string,
-    phone: number,
-    email: string,
-    nif: string,
-    logo_img: string
-  ) {
-    this.name = name;
-    (this.phone = phone), (this.email = email);
-    this.nif = nif;
-    this.logo_img = logo_img;
+  constructor(params: Empresa) {
+    Object.assign(this, params);
   }
 }
