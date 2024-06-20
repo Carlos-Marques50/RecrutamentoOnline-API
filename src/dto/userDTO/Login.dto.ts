@@ -6,8 +6,8 @@ export interface IntputDataLogin
 }
 
 export interface OutputDataLogin
-{   
-    id_user:string,
+{
     token:string,
+    User: object
 }
 

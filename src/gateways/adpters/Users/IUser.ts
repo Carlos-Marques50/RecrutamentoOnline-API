@@ -4,6 +4,8 @@ import User from "../../../entity/User";
 
 export interface UserGatewayInterface
   extends BaseGateway<User, User & BaseModel> {
+    
     readByEmail(email:string):Promise<User & BaseModel>
-    resetPassword(id:string,password:string):Promise<void>
+    resetPassword(id:string,password:string):Promise<boolean>
+  
 }

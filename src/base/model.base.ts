@@ -1,4 +1,6 @@
 
 export default class BaseModel {
-    id:string ;
+    public id:string ;
+    public createdAt: Date;
+    public updatedAt: Date;
 }

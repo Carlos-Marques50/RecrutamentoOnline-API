@@ -1,6 +1,6 @@
 import axios from "axios";
 import BaseModel from "../../base/model.base";
-import { IntputDataLogin, OutputDataLogin } from "../../dto/Login.dto";
+import { IntputDataLogin, OutputDataLogin } from "../../dto/userDTO/Login.dto";
 import User from "../../entity/User";
 import { UserGatewayInterface } from "../adpters/Users/IUser";
 
@@ -11,6 +11,12 @@ export class UserMockGateway implements UserGatewayInterface {
 
   constructor(url: string) {
     this.init(url);
+  }
+  readByEmail(email: string): Promise<User & BaseModel> {
+    throw new Error("Method not implemented.");
+  }
+  resetPassword(id: string, password: string): Promise<void> {
+    throw new Error("Method not implemented.");
   }
 
   private async init(url: string): Promise<void> {

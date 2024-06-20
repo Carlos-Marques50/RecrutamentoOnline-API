@@ -1,10 +1,10 @@
 export interface InputUserDto {
   name: string;
   email: string;
-  status: boolean;
   password: string;
-  level_acess: number;
-  company: number;
+  status: boolean;
+  accessLevelId: string;
+  companyId: string;
 }
 
 export interface OutputUserDto {
@@ -13,8 +13,8 @@ export interface OutputUserDto {
   email: string;
   status: boolean;
   password: string;
-  level_acess: number;
-  company: number;
-  createdDate: Date;
-  updatedDate: Date;
+  accessLevelId: string;
+  companyId: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
