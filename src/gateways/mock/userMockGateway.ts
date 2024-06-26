@@ -12,26 +12,29 @@ export class UserMockGateway implements UserGatewayInterface {
   constructor(url: string) {
     this.init(url);
   }
-  readByEmail(email: string): Promise<User & BaseModel> {
-    throw new Error("Method not implemented.");
-  }
-  resetPassword(id: string, password: string): Promise<void> {
-    throw new Error("Method not implemented.");
-  }
 
   private async init(url: string): Promise<void> {
     try {
-        const res = await axios.get(`${url}/users`);
-        const data = res.data as { users: Users[] };
-        this.users = data.users;
-      } catch (error) {
-        console.error("Erro ao inicializar usuários:", error);
-      }
+      const res = await axios.get(`${url}/users`);
+      const data = res.data as { users: Users[] };
+      this.users = data.users;
+    } catch (error) {
+      console.error("Erro ao inicializar usuários:", error);
+    }
   }
 
-  public test = async(): Promise<void> => {}
+  readByEmail(email: string): Promise<User & BaseModel> {
+    throw new Error("Method not implemented.");
+  }
 
-  public login = async (dataUser: IntputDataLogin): Promise<OutputDataLogin> => {
+  resetPassword(id: string, password: string): Promise<boolean> {
+    throw new Error("Method not implemented.");
+  }
+  public test = async (): Promise<void> => {};
+
+  public login = async (
+    dataUser: IntputDataLogin
+  ): Promise<OutputDataLogin> => {
     throw new Error("Method not implemented.");
   };
 

@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 import TypeError from "../../shared/TypeError";
 import controller_base from "../../base/controller.base";
-import UserGetOne from "../../service/users/UserGetOne.Service";
-import UserGetAllService from "../../service/users/UserGetAll.Service";
-import UserLogin from "../../service/users/UserLogin.Service";
-import UserStore from "../../service/users/UserStore.Service";
-import UserResetPassword from "../../service/users/UserResetPassword.Service";
+import UserGetOne from "../../service/Users/UserGetOne.Service";
+import UserGetAllService from "../../service/Users/UserGetAll.Service";
+import UserLogin from "../../service/Users/UserLogin.Service";
+import UserStore from "../../service/Users/UserStore.Service";
+import UserResetPassword from "../../service/Users/UserResetPassword.Service";
 
 export class UserController implements controller_base {
   private readonly GetAllService: UserGetAllService;
@@ -90,50 +90,17 @@ export class UserController implements controller_base {
     return res.status(200).json(serviceResult);
   };
 
-  // public recoveryPassword = async (req: Request, res: Response) => {
-  //   /*
-  //     Contribuição aberta:
-  //     -Validação dos dados vindo da Chamada da API
-  //     -Mensagem de Erro dos dados mão formatado
-  //   */
-
-  //   try {
-  //     const dataRecoveryPass = {
-  //       id: req.body.id,
-  //       oldPassword: req.body.oldPassword,
-  //       newPassword: req.body.newPassword,
-  //     };
-
-  //     const serviceResult = await this.UserResetPassword.Execute(
-  //       dataRecoveryPass
-  //     );
-  //     var test: any;
-  //     console.log(serviceResult);
-  //     if (test instanceof TypeError) {
-       
-  //       return res.status(test.status).json(test.message);
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //     return res.status(200).json({
-  //       mensagem: "Senha Actualizada com Sucesso",
-  //     });
-  //   }
-  // };
-
-
   public recoveryPassword = async (req: Request, res: Response) => {
-    const dataRecoveryPass = {    
+    const dataRecoveryPass = {
       id: req.body.id,
       oldPassword: req.body.oldPassword,
       newPassword: req.body.newPassword,
     };
-   
 
-      const serviceResult = await this.UserResetPassword.Execute(dataRecoveryPass);
-      console.log(serviceResult);
-      
-    
+    const serviceResult = await this.UserResetPassword.Execute(
+      dataRecoveryPass
+    );
+    console.log(serviceResult);
   };
   
 }

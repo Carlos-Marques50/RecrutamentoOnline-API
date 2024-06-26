@@ -1,12 +1,12 @@
 import { Router } from "express";
 import { UserController } from "../controllers/user/User.Controller";
 import { UserMockGateway } from "../gateways/mock/userMockGateway";
-import UserGetAllService from "../service/users/UserGetAll.Service";
-import UserGetOne from "../service/users/UserGetOne.Service";
+import UserGetAllService from "../service/Users/UserGetAll.Service";
+import UserGetOne from "../service/Users/UserGetOne.Service";
 import { UserDataBase } from "../gateways/DataBase/prisma/geteway/users";
-import UserLogin from "../service/users/UserLogin.Service";
-import UserStore from "../service/users/UserStore.Service";
-import UserResetPassword from "../service/users/UserResetPassword.Service";
+import UserLogin from "../service/Users/UserLogin.Service";
+import UserStore from "../service/Users/UserStore.Service";
+import UserResetPassword from "../service/Users/UserResetPassword.Service";
 
 const RouteUser = Router();
 
