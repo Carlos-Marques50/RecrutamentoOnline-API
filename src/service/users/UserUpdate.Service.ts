@@ -11,7 +11,8 @@ export class UserUpdate implements BaseService<InputUserDto, User | TypeError> {
         this.userGateway = userGateway;
     }
     async Execute(params: InputUserDto, id: string): Promise<User | TypeError> {
-
+        console.log(params);
+        
         const serviceResult = await this.userGateway.update(params, id);
         if (!serviceResult) return new TypeError("Actualização do usuario invalido", 400);
         return serviceResult;

@@ -19,6 +19,4 @@ export default class UserGetAllService implements BaseService<void, Users[] | Ty
 
         return usersResult;
     }
-
-
 }

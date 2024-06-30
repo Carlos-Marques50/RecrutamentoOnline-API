@@ -64,8 +64,8 @@ export class UserDataBase implements UserGatewayInterface {
     return userResult;
   }
 
-  async update(params: User & BaseModel, id: string): Promise<Users> {
-
+  async update(params: User, id: string): Promise<Users> {
+    
     try {
       const userResult = await this.prismaClient.user.update({
         where: { id: id },

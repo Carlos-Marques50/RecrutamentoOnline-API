@@ -18,6 +18,8 @@ CREATE TABLE `User` (
     `status` BOOLEAN NOT NULL,
     `accessLevelId` VARCHAR(191) NOT NULL,
     `companyId` VARCHAR(191) NOT NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL,
 
     UNIQUE INDEX `User_email_key`(`email`),
     PRIMARY KEY (`id`)
