@@ -8,6 +8,7 @@ import UserLogin from "../service/Users/UserLogin.Service";
 import UserStore from "../service/Users/UserStore.Service";
 import UserResetPassword from "../service/Users/UserResetPassword.Service";
 import { UserUpdate } from "../service/users/UserUpdate.Service";
+import UserDelete from "../service/users/UserDelete.Service";
 
 const RouteUser = Router();
 
@@ -20,6 +21,9 @@ const UserLoginServiceInjection = new UserLogin(gatewayData);
 const UserStoreServiceInjection = new UserStore(gatewayData);
 const UserResetPasswordInjection = new UserResetPassword(gatewayData);
 const UserUpdateInjection = new UserUpdate(gatewayData);
+const UserDeleteInjection = new UserDelete(gatewayData);
+
+
 
 const userController = new UserController(
   GetAllServiceInjection,
@@ -28,8 +32,9 @@ const userController = new UserController(
   UserStoreServiceInjection,
   UserResetPasswordInjection,
   UserUpdateInjection,
-);
+  UserDeleteInjection,
 
+);
 
 //Consult
 RouteUser.get("/all", userController.getAll);
@@ -43,5 +48,7 @@ RouteUser.post("/recovery", userController.recoveryPassword);
 //Update
 RouteUser.post("/update/:user_id", userController.update);
 
+//Delete
+RouteUser.delete("/delete/:user_id", userController.delete);
 
 export default RouteUser;
