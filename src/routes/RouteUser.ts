@@ -46,7 +46,7 @@ RouteUser.post("/login", userController.login);
 RouteUser.post("/recovery", userController.recoveryPassword);
 
 //Update
-RouteUser.post("/update/:user_id", userController.update);
+RouteUser.put("/update/:user_id", userController.update);
 
 //Delete
 RouteUser.delete("/delete/:user_id", userController.delete);

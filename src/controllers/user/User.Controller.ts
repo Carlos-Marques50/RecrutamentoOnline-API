@@ -1,13 +1,12 @@
 import { Request, Response } from "express";
 import TypeError from "../../shared/TypeError";
 import controller_base from "../../base/controller.base";
-import UserGetOne from "../../service/Users/UserGetOne.Service";
+import { UserUpdate } from "../../service/users/UserUpdate.Service";
 import UserGetAllService from "../../service/Users/UserGetAll.Service";
+import UserGetOne from "../../service/Users/UserGetOne.Service";
 import UserLogin from "../../service/Users/UserLogin.Service";
 import UserStore from "../../service/Users/UserStore.Service";
 import UserResetPassword from "../../service/Users/UserResetPassword.Service";
-import { UserUpdate } from "../../service/users/UserUpdate.Service";
-import UserDelete from "../../service/users/UserDelete.Service";
 
 export class UserController implements controller_base {
 
@@ -65,12 +64,6 @@ export class UserController implements controller_base {
       companyId: req.body.companyId,
     };
 
-    /*
-      Contribuição aberta:
-      -Validação dos dados vindo da Chamada da API
-      -Mensagem de Erro dos dados mão formatado
-    */
-
     const serviceResult = await this.UserStoreService.Execute(dataUserCreted);
 
     if (Error instanceof TypeError) {
@@ -85,6 +78,7 @@ export class UserController implements controller_base {
     if (dataUserUpdated instanceof TypeError) {
       return res.status(dataUserUpdated.status).json({ errors: false, mensagem: dataUserUpdated.message });
     }
+    
     return res.status(200).json(dataUserUpdated);
   }
 
@@ -114,21 +108,5 @@ export class UserController implements controller_base {
       res.status(serviceResult.status).json({ message: serviceResult.message });
     }
     return res.status(200).json(serviceResult);
-
   }
-
-  public delete = async (req: Request, res: Response): Promise<Response> => {
-
-    const resultService = await this.UserDeleteService.Execute(req.params.user_id);
-    if (resultService instanceof TypeError) {
-      return res.status(resultService.status).json(resultService.message);
-    }
-
-
-    return res.status(200).json(resultService);
-
-
-  }
-
-
 }
