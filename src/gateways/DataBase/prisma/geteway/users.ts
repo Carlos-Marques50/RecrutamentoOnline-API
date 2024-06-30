@@ -79,7 +79,17 @@ export class UserDataBase implements UserGatewayInterface {
 
   }
 
-  delete(id: string): Promise<Boolean> {
-    throw new Error("Method not implemented.");
+  async delete(id: string): Promise<Boolean> {
+    try {
+
+      const userResult = await this.prismaClient.user.delete({
+        where: { id }
+      });
+      return true;
+
+    } catch (error: any) {
+      return error.meta.target; //Reparar este erro, não pode estar visivel na parte externa do codigo.(no retorno da API)
+    }
   }
-}
+
+}//Close of Class

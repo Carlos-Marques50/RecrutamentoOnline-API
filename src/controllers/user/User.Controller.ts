@@ -14,23 +14,26 @@ export class UserController implements controller_base {
   private readonly GetOneService: UserGetOne;
   private readonly UserLoginService: UserLogin;
   private UserStoreService: UserStore;
-  private UserResetPassword: UserResetPassword;
-  private UserUpdate: UserUpdate;
+  private UserResetPasswordService: UserResetPassword;
+  private UserUpdateService: UserUpdate;
+  private UserDeleteService: UserDelete;
 
   constructor(
     GetAllService: UserGetAllService,
     GetOneService: UserGetOne,
     UserLoginService: UserLogin,
     UserStoreService: UserStore,
-    UserResetPassword: UserResetPassword,
-    UserUpdate: UserUpdate,
+    UserResetPasswordService: UserResetPassword,
+    UserUpdateService: UserUpdate,
+    UserDeleteService: UserDelete,
   ) {
     this.GetAllService = GetAllService;
     this.GetOneService = GetOneService;
     this.UserLoginService = UserLoginService;
     this.UserStoreService = UserStoreService;
-    this.UserResetPassword = UserResetPassword;
-    this.UserUpdate = UserUpdate;
+    this.UserResetPasswordService = UserResetPasswordService;
+    this.UserUpdateService = UserUpdateService;
+    this.UserDeleteService = UserDeleteService;
   }
 
   public getAll = async (req: Request, res: Response) => {
@@ -71,7 +74,7 @@ export class UserController implements controller_base {
   };
 
   public update = async (req: Request, res: Response): Promise<Response> => {
-    const dataUserUpdated = await this.UserUpdate.Execute(req.body, req.params.user_id);
+    const dataUserUpdated = await this.UserUpdateService.Execute(req.body, req.params.user_id);
     if (dataUserUpdated instanceof TypeError) {
       return res.status(dataUserUpdated.status).json({ errors: false, mensagem: dataUserUpdated.message });
     }
@@ -79,9 +82,6 @@ export class UserController implements controller_base {
     return res.status(200).json(dataUserUpdated);
   }
 
-  public delete = async (req: Request, res: Response): Promise<Response> => {
-    throw new Error("Method not implemented.");
-  };
 
   public login = async (req: Request, res: Response) => {
     const serviceResult = await this.UserLoginService.Execute(req.body);
@@ -101,7 +101,7 @@ export class UserController implements controller_base {
       newPassword: req.body.newPassword,
     }
 
-    const serviceResult = await this.UserResetPassword.Execute(
+    const serviceResult = await this.UserResetPasswordService.Execute(
       dataRecoveryPass
     );
     if (serviceResult instanceof TypeError) {
