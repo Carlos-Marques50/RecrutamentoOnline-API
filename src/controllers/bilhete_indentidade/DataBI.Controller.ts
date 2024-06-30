@@ -5,14 +5,13 @@ import { DataBIService } from "../../service/Bilhete_Identidade/BiGetAll.Service
 export default class DataBiController implements controller_base {
   private readonly BiGetAllService: DataBIService;
 
-  constructor(BiGetAllService:DataBIService ) {
+  constructor(BiGetAllService: DataBIService) {
     this.BiGetAllService = BiGetAllService;
   }
 
   async getAll(req: Request, res: Response): Promise<Response> {
-    const serviceResult = await this.BiGetAllService.searchDataBI(
-      req.body.numBi
-    );
+
+    const serviceResult = await this.BiGetAllService.Execute(req.body.numBi);
     return res.status(200).json(serviceResult);
   }
 

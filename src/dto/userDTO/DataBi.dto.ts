@@ -1,4 +1,4 @@
-interface dataBiSuccess {
+export interface dataBiSuccess {
   error: boolean;
   name: string;
   data_de_nascimento: Date;
@@ -9,7 +9,7 @@ interface dataBiSuccess {
   type: string;
 }
 
-interface dataBiError {
+export interface dataBiError {
   error: boolean;
   message: string;
 }

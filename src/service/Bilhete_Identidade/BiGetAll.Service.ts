@@ -1,24 +1,28 @@
 import { BaseService } from "../../base/service.base";
+import { dataBiError, dataBiSuccess } from "../../dto/userDTO/DataBi.dto";
 import { ICandidate } from "../../gateways/adpters/DataBI/ICandidate";
 
+export class DataBIService implements BaseService<string, dataBiSuccess> {
 
+  private readonly DataBIGateway: ICandidate<dataBiSuccess>;
 
-export class DataBIService implements BaseService<string, dataBiSuccess >{
-    searchDataBI(numBi: any) {
-      throw new Error("Method not implemented.");
-    }
+  constructor(DataBIGateway: ICandidate<dataBiSuccess>) {
+    this.DataBIGateway = DataBIGateway;
+  }
 
-    private readonly DataBIGateway:ICandidate<dataBiSuccess >;
+  searchDataBI = async (numBi: string) => {
+    const dataBi = await this.DataBIGateway.searchDataBI(numBi);
 
-    constructor(DataBIGateway: ICandidate<dataBiSuccess >){
-        this.DataBIGateway= DataBIGateway;
-    }
+    console.log(dataBi);
+    // return dataBi;
+  }
 
-    async Execute(numBi: string): Promise<dataBiSuccess > {
-    
-       const dataBi= await this.DataBIGateway.searchDataBI(numBi);
-       return dataBi;
+  Execute = async (numBi: string): Promise<dataBiSuccess> => {
+    // return this.searchDataBI(numBi);
 
-    }
+    console.log(this.DataBIGateway.searchDataBI(numBi));
+    return this.DataBIGateway.searchDataBI(numBi);
+  }
 
 }
+

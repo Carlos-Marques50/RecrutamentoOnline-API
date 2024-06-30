@@ -1,3 +1,3 @@
-export abstract class BaseService<In, Out > {
-    abstract Execute(params: In): Promise<Out>
+export abstract class BaseService<In, Out> {
+    abstract Execute(params: In, data?: any): Promise<Out>
 }

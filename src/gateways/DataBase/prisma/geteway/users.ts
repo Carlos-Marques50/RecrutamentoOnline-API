@@ -16,13 +16,16 @@ export class UserDataBase implements UserGatewayInterface {
   }
 
   async resetPassword(id: string, newPassword: string): Promise<boolean> {
-    const user = this.prismaClient.user.update({
-      where:{id},
-      data:{password: bcrypt.hashSync(newPassword, 8)}
-    });
-    if(user){
-      return true;
-    }else{
+    try {
+      const hashedPassword = bcrypt.hashSync(newPassword, 8);
+      const user = await this.prismaClient.user.update({
+        where: { id },
+        data: { password: hashedPassword }
+      });
+
+      return !!user;
+    } catch (error) {
+      console.error('Erro ao redefinir a senha:', error);
       return false;
     }
   }
@@ -49,20 +52,31 @@ export class UserDataBase implements UserGatewayInterface {
         name: true,
         email: true,
         status: true,
-        accessLevelId:true,
-        companyId:true,
-        password:true,
+        accessLevelId: true,
+        companyId: true,
+        password: true,
         createdAt: true,
         updatedAt: true,
       },
-      
+
     });
 
     return userResult;
   }
 
-  update(params:User, id:string): Promise<Users> {
-    throw new Error("Method not implemented.");
+  async update(params: User & BaseModel, id: string): Promise<Users> {
+
+    try {
+      const userResult = await this.prismaClient.user.update({
+        where: { id: id },
+        data: params
+      });
+      return userResult;
+
+    } catch (error: any) {
+      return error.meta.target;  //Reparar este erro, não pode estar visivel na parte externa do codigo.(no retorno da API)
+    }
+
   }
 
   delete(id: string): Promise<Boolean> {
