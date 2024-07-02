@@ -1,7 +1,7 @@
 import { BaseService } from "../../base/service.base"
 import { InputUserDto, OutputUserDto } from "../../dto/userDTO/User.dto";
 import User from "../../entity/User";
-import { UserGatewayInterface } from "../../gateways/adpters/Users/IUser";
+import { UserGatewayInterface } from "../../gateways/adpters/IUser";
 import TypeError from "../../shared/TypeError";
 
 export class UserUpdate implements BaseService<InputUserDto, User | TypeError> {//Essa implementaçâo foi improvisada, retirei a DTO 

@@ -1,9 +1,11 @@
 import { Router } from "express";
 import RouteUser from "./RouteUser";
-import RouteDataBI from "./Route.DataBI";
+import RouteCandidate from "./RouteCandidate";
 
 const RouteMain = Router();
+
 RouteMain.use("/users", RouteUser);
-RouteMain.use("/bi", RouteDataBI);
+RouteMain.use("/candidates", RouteCandidate);
+
 
 export default RouteMain;

@@ -1,5 +1,5 @@
 import { BaseService } from "../../base/service.base";
-import { UserGatewayInterface } from "../../gateways/adpters/Users/IUser";
+import { UserGatewayInterface } from "../../gateways/adpters/IUser";
 import TypeError from "../../shared/TypeError";
 import { IntputDataLogin, OutputDataLogin } from "../../dto/userDTO/Login.dto";
 import * as bcrypt from "bcrypt";

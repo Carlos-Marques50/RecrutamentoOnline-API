@@ -1,6 +1,7 @@
 import BaseModel from "../../../../base/model.base";
+import { OutputUserDto } from "../../../../dto/userDTO/User.dto";
 import User from "../../../../entity/User";
-import { UserGatewayInterface } from "../../../adpters/Users/IUser";
+import { UserGatewayInterface } from "../../../adpters/IUser";
 import { PrismaClient } from "@prisma/client";
 import * as bcrypt from "bcrypt";
 
@@ -40,7 +41,7 @@ export class UserDataBase implements UserGatewayInterface {
     return create;
   }
 
-  async readAll(): Promise<(Users)[]> {
+  async readAll(): Promise<OutputUserDto[]> {
     return await this.prismaClient.user.findMany();
   }
 

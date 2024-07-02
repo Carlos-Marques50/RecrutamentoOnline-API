@@ -2,7 +2,7 @@ import axios from "axios";
 import BaseModel from "../../base/model.base";
 import { IntputDataLogin, OutputDataLogin } from "../../dto/userDTO/Login.dto";
 import User from "../../entity/User";
-import { UserGatewayInterface } from "../adpters/Users/IUser";
+import { UserGatewayInterface } from "../adpters/IUser";
 
 type Users = User & BaseModel;
 
@@ -30,7 +30,7 @@ export class UserMockGateway implements UserGatewayInterface {
   resetPassword(id: string, password: string): Promise<boolean> {
     throw new Error("Method not implemented.");
   }
-  public test = async (): Promise<void> => {};
+  public test = async (): Promise<void> => { };
 
   public login = async (
     dataUser: IntputDataLogin

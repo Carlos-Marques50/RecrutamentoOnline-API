@@ -123,11 +123,7 @@ export class UserController implements controller_base {
     if (resultService instanceof TypeError) {
       return res.status(resultService.status).json(resultService.message);
     }
-
-
     return res.status(200).json(resultService);
-
-
   }
 
 

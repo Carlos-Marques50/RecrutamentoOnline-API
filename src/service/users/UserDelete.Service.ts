@@ -1,5 +1,5 @@
 import { BaseService } from "../../base/service.base";
-import { UserGatewayInterface } from "../../gateways/adpters/Users/IUser";
+import { UserGatewayInterface } from "../../gateways/adpters/IUser";
 import TypeError from '../../shared/TypeError';
 
 export default class UserDelete implements BaseService<string, boolean | TypeError> {

@@ -1,6 +1,6 @@
 import { BaseService } from "../../base/service.base";
 import { InputDataRecoveryPass } from "../../dto/userDTO/RecoveryPass.dto";
-import { UserGatewayInterface } from "../../gateways/adpters/Users/IUser";
+import { UserGatewayInterface } from "../../gateways/adpters/IUser";
 import TypeError from "../../shared/TypeError";
 import * as bcrypt from "bcrypt";
 
