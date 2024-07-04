@@ -1,31 +1,53 @@
-import { BaseGateway } from "../../../../base/gateway.base";
-import { IntputDataCandidate, OutputDataCandidate } from "../../../../dto/userDTO/Candidate.dto";
+import { IntputDataCandidateDTO, OutputDataCandidateDTO } from "../../../../dto/userDTO/Candidate.dto";
 import ICandidate from "../../../adpters/ICandidate";
 import { prismaClient } from "../../config";
 
-
-
 export default class CandidateGateway implements ICandidate {
 
-    readOne(id: string): Promise<OutputDataCandidate | any> {
-        throw new Error("Method not implemented.");
+    async readOne(id: string): Promise<OutputDataCandidateDTO | any> {
+
+        const candidateOne = await prismaClient.candidate.findFirst({
+            where: { id }
+        });
+        return candidateOne;
     }
 
-    async store(params: IntputDataCandidate): Promise<OutputDataCandidate> {
-        throw new Error("Method not implemented.");
+    async store(params: IntputDataCandidateDTO): Promise<OutputDataCandidateDTO> {
+
+        try {
+            const candidateCreate = await prismaClient.candidate.create({
+                data: params,
+            });
+            return candidateCreate;
+
+        } catch (error: any) {
+            console.error(error);
+            return error.meta.target;
+            //Retificar o tratamento de erro, não pode estar visivel fora do esccopo
+        }
     }
 
-    async readAll(): Promise<OutputDataCandidate[]> {
+    async readAll(): Promise<OutputDataCandidateDTO[]> {
         const candidateAll = await prismaClient.candidate.findMany();
         return candidateAll;
     }
 
-    async update(params: IntputDataCandidate, id: string): Promise<IntputDataCandidate> {
+    async update(params: IntputDataCandidateDTO, id: string): Promise<OutputDataCandidateDTO> {
         throw new Error("Method not implemented.");
     }
 
     async delete(id: string): Promise<Boolean> {
-        throw new Error("Method not implemented.");
+        try {
+
+            const candidateDelete = await prismaClient.candidate.delete({
+                where: { id }
+            });
+
+            return true;
+
+        } catch (error: any) {
+            return error.meta.target; //Reparar este erro, não pode estar visivel na parte externa do codigo.(no retorno da API)
+        }
     }
 
 }

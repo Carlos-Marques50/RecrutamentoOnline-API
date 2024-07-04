@@ -1,7 +1,7 @@
 
-export interface IntputDataCandidate {
+export interface IntputDataCandidateDTO{
     name: string;
-    num_bi: number;
+    num_bi: string;
     email: string;
     phone: number;
     doc: string;
@@ -9,7 +9,7 @@ export interface IntputDataCandidate {
     dateBirth: Date;
 }
 
-export interface OutputDataCandidate {
+export interface OutputDataCandidateDTO{
     id: string;
     name: string;
     num_bi: string;

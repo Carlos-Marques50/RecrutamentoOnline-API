@@ -1,8 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 generator client {
   provider = "prisma-client-js"
 }
@@ -12,68 +7,67 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model AcessLevel {
-  id        String   @id @default(cuid())
+model acesslevel {
+  id        String   @id
   role      String
   descricao String
-  users     User[]
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime
+  user      user[]
 }
 
-model User {
-  id            String     @id @default(cuid())
+model address {
+  id        String    @id
+  district  String
+  country   String
+  city      String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime
+  company   company[]
+}
+
+model candidate {
+  id        String   @id
+  name      String
+  num_bi    String   @unique(map: "Candidate_num_bi_key")
+  email     String   @unique(map: "Candidate_email_key")
+  phone     Int      @unique(map: "Candidate_phone_key")
+  doc       String   @unique(map: "Candidate_doc_key")
+  status    String
+  dateBirth DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+}
+
+model company {
+  id        String   @id
+  name      String
+  email     String   @unique(map: "Company_email_key")
+  nif       String   @unique(map: "Company_nif_key")
+  phone     Int      @unique(map: "Company_phone_key")
+  logo_img  String?  @unique(map: "Company_logo_img_key")
+  addressId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+  address   address  @relation(fields: [addressId], references: [id], map: "Company_addressId_fkey")
+  user      user[]
+
+  @@index([addressId], map: "Company_addressId_fkey")
+}
+
+model user {
+  id            String     @id
   name          String
-  email         String     @unique
+  email         String     @unique(map: "User_email_key")
   password      String
   status        Boolean
   accessLevelId String
   companyId     String
-  company       Company    @relation(fields: [companyId], references: [id])
-  accessLevel   AcessLevel @relation(fields: [accessLevelId], references: [id])
   createdAt     DateTime   @default(now())
-  updatedAt     DateTime   @updatedAt
-}
+  updatedAt     DateTime
+  acesslevel    acesslevel @relation(fields: [accessLevelId], references: [id], map: "User_accessLevelId_fkey")
+  company       company    @relation(fields: [companyId], references: [id], map: "User_companyId_fkey")
 
-model Company {
-  id        String   @id @default(cuid())
-  name      String
-  email     String   @unique
-  nif       String   @unique
-  phone     Int      @unique
-  logo_img  String?  @unique
-  users     User[]
-  addressId String
-  address   Address  @relation(fields: [addressId], references: [id])
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model Address {
-  id        String    @id @default(cuid())
-  district  String
-  country   String
-  city      String
-  companies Company[]
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-}
-
-model Candidate {
-  id        String   @id @default(cuid())
-  name      String
-  num_bi    String   @unique
-  email     String   @unique
-  phone     Int      @unique
-  doc       String   @unique
-  status    String
-  dateBirth DateTime
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-enum status_type {
-  PENDING
-  ACTIVE
-  REJECTED
+  @@index([accessLevelId], map: "User_accessLevelId_fkey")
+  @@index([companyId], map: "User_companyId_fkey")
 }

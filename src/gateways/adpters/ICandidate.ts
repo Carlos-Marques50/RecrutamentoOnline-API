@@ -5,4 +5,5 @@ import Candidate from "../../entity/Candiddate";
 
 export default interface ICandidate extends BaseGateway<IntputDataCandidate, OutputDataCandidate> {
 
+    
 }

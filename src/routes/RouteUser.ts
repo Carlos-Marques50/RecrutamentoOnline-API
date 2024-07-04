@@ -23,8 +23,6 @@ const UserResetPasswordInjection = new UserResetPassword(gatewayData);
 const UserUpdateInjection = new UserUpdate(gatewayData);
 const UserDeleteInjection = new UserDelete(gatewayData);
 
-
-
 const userController = new UserController(
   GetAllServiceInjection,
   GetOneServiceInjection,

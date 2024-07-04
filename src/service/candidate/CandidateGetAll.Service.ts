@@ -1,21 +1,19 @@
 import { BaseService } from "../../base/service.base";
-import { IntputDataCandidate, OutputDataCandidate } from "../../dto/userDTO/Candidate.dto";
+import { IntputDataCandidateDTO, OutputDataCandidateDTO } from "../../dto/userDTO/Candidate.dto";
 import ICandidate from "../../gateways/adpters/ICandidate";
-
 import TypeError from "../../shared/TypeError";
 
-
-export default class CandidateGetAllService implements BaseService<IntputDataCandidate, OutputDataCandidate[] | TypeError> {
+export default class CandidateGetAllService implements BaseService<IntputDataCandidateDTO, OutputDataCandidateDTO[] | TypeError> {
 
     private candidateService: ICandidate;
 
     constructor(candidateService: ICandidate) {
         this.candidateService = candidateService;
-
     }
-    async Execute(): Promise<OutputDataCandidate[] | TypeError> {
+
+    async Execute(): Promise<OutputDataCandidateDTO[] | TypeError> {
         const candidateAll = await this.candidateService.readAll();
-        if (candidateAll) {
+        if (!candidateAll) {
             return new TypeError("Erro ao Consultar os Candidatos", 400);
         }
         return candidateAll;

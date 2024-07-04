@@ -1,5 +1,5 @@
 import BaseModel from "../../../../base/model.base";
-import { OutputUserDto } from "../../../../dto/userDTO/User.dto";
+import { InputUserDto, OutputUserDto } from "../../../../dto/userDTO/User.dto";
 import User from "../../../../entity/User";
 import { UserGatewayInterface } from "../../../adpters/IUser";
 import { PrismaClient } from "@prisma/client";
@@ -31,7 +31,7 @@ export class UserDataBase implements UserGatewayInterface {
     }
   }
 
-  async store(params: User): Promise<Users> {
+  async store(params: InputUserDto): Promise<Users> {
     const hashedPassword: string = bcrypt.hashSync(params.password, 8);
     params.password = hashedPassword;
 
