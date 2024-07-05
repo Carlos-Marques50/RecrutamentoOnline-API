@@ -1,4 +1,4 @@
-import { IntputDataCandidateDTO, OutputDataCandidateDTO } from "../../../../dto/userDTO/Candidate.dto";
+import { IntputDataCandidateDTO, OutputDataCandidateDTO } from "../../../../dto/candidateDTO/Candidate.dto";
 import ICandidate from "../../../adpters/ICandidate";
 import { prismaClient } from "../../config";
 
