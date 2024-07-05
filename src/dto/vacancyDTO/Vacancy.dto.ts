@@ -17,7 +17,7 @@ export interface OutputDataVacancyDTO{
     title: string;
     description?: string;
     status: boolean;
-    user_id: string;
+    candidateId: string;
     dateEnd: Date;
     createdAt: Date;
     updatedAt: Date;

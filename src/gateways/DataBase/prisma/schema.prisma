@@ -21,6 +21,7 @@ model address {
   district  String
   country   String
   city      String
+  street    String
   createdAt DateTime  @default(now())
   updatedAt DateTime
   company   company[]
@@ -37,6 +38,7 @@ model candidate {
   dateBirth DateTime
   createdAt DateTime @default(now())
   updatedAt DateTime
+  applications application[]
 }
 
 model company {
@@ -56,7 +58,7 @@ model company {
 }
 
 model user {
-  id            String     @id
+  id            String     @id 
   name          String
   email         String     @unique(map: "User_email_key")
   password      String
@@ -70,4 +72,52 @@ model user {
 
   @@index([accessLevelId], map: "User_accessLevelId_fkey")
   @@index([companyId], map: "User_companyId_fkey")
+}
+
+model vacancy {
+  id         String    @id @default(cuid())
+  requirements String
+  category   String
+  title      String    @unique(map: "Vacancy_title_key")
+  description String?
+  status     String
+  dateEnd    DateTime
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime
+  applications application[]
+  userId     String
+  user       user      @relation(fields: [userId], references: [id], map: "Vacancy_userId_fkey")
+
+  @@index([userId], map: "Vacancy_userId_fkey")
+}
+
+model application {
+  id          String    @id @default(cuid())
+  description String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime
+  candidateId String
+  vacancyId   String
+  candidate   candidate @relation(fields: [candidateId], references: [id], map: "Application_candidateId_fkey")
+  vacancy     vacancy   @relation(fields: [vacancyId], references: [id], map: "Application_vacancyId_fkey")
+
+  @@index([candidateId], map: "Application_candidateId_fkey")
+  @@index([vacancyId], map: "Application_vacancyId_fkey")
+}
+
+model interview {
+  id           String    @id @default(cuid())
+  dateTime     DateTime
+  status       String
+  interviewee  Boolean
+  interviewType String
+  candidateId  String
+  userId       String
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime
+  candidate    candidate @relation(fields: [candidateId], references: [id], map: "Interview_candidateId_fkey")
+  user         user      @relation(fields: [userId], references: [id], map: "Interview_userId_fkey")
+
+  @@index([candidateId], map: "Interview_candidateId_fkey")
+  @@index([userId], map: "Interview_userId_fkey")
 }

@@ -7,7 +7,7 @@ export default class Vacancy{
     public title: string;
     public description?: string;
     public status: boolean;
-    public user_id: string;
+    public candidateId: string;
     public dateEnd: Date;
 
     constructor(params:Vacancy){
