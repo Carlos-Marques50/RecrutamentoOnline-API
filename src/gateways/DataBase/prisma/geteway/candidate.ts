@@ -38,7 +38,6 @@ export default class CandidateGateway implements ICandidate {
 
     async delete(id: string): Promise<Boolean> {
         try {
-
             const candidateDelete = await prismaClient.candidate.delete({
                 where: { id }
             });

@@ -1,7 +1,4 @@
-
-
 export default class Vacancy{
-
     public requirements: string;
     public category: string;
     public title: string;

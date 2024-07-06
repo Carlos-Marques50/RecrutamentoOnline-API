@@ -39,6 +39,7 @@ model candidate {
   createdAt DateTime @default(now())
   updatedAt DateTime
   applications application[]
+  interview interview[]
 }
 
 model company {
@@ -69,6 +70,8 @@ model user {
   updatedAt     DateTime
   acesslevel    acesslevel @relation(fields: [accessLevelId], references: [id], map: "User_accessLevelId_fkey")
   company       company    @relation(fields: [companyId], references: [id], map: "User_companyId_fkey")
+  vacancy       vacancy[]
+  interview     interview[]
 
   @@index([accessLevelId], map: "User_accessLevelId_fkey")
   @@index([companyId], map: "User_companyId_fkey")
