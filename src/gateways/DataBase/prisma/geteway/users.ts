@@ -31,7 +31,7 @@ export class UserDataBase implements UserGatewayInterface {
     }
   }
 
-  async store(params: Users): Promise<Users> {
+  async store(params: User): Promise<Users> {
     const hashedPassword: string = bcrypt.hashSync(params.password, 8);
     params.password = hashedPassword;
 

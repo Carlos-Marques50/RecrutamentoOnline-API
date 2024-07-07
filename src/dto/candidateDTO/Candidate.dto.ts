@@ -20,4 +20,6 @@ export interface OutputDataCandidateDTO{
     dateBirth: Date;
     createdAt: Date;
     updatedAt: Date;
+
+    
 }
