@@ -26,7 +26,6 @@ export default class VacancyController implements controller_base {
             status: req.body.status,
             userId: req.body.userId,
             dateEnd: req.body.dateEnd,
-            updatedAt: req.body.dateEnd
         }
 
         /*

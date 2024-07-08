@@ -8,27 +8,27 @@ datasource db {
 }
 
 model acesslevel {
-  id        String   @id
+  id        String   @id @default(cuid())
   role      String
   descricao String
   createdAt DateTime @default(now())
-  updatedAt DateTime
+  updatedAt DateTime  @updatedAt
   user      user[]
 }
 
 model address {
-  id        String    @id
+  id        String    @id @default(cuid())
   district  String
   country   String
   city      String
   createdAt DateTime  @default(now())
-  updatedAt DateTime
+  updatedAt DateTime   @updatedAt
   street    String?
   company   company[]
 }
 
 model candidate {
-  id           String        @id
+  id           String        @id @default(cuid())
   name         String
   num_bi       String        @unique(map: "Candidate_num_bi_key")
   email        String        @unique(map: "Candidate_email_key")
@@ -37,12 +37,12 @@ model candidate {
   status       String
   dateBirth    DateTime
   createdAt    DateTime      @default(now())
-  updatedAt    DateTime
+  updatedAt    DateTime     @updatedAt
   applications application[]
 }
 
 model company {
-  id        String   @id
+  id        String   @id @default(cuid())
   name      String
   email     String   @unique(map: "Company_email_key")
   nif       String   @unique(map: "Company_nif_key")
@@ -50,7 +50,7 @@ model company {
   logo_img  String?  @unique(map: "Company_logo_img_key")
   addressId String
   createdAt DateTime @default(now())
-  updatedAt DateTime
+  updatedAt DateTime @updatedAt
   address   address  @relation(fields: [addressId], references: [id], map: "Company_addressId_fkey")
   user      user[]
 
@@ -58,7 +58,7 @@ model company {
 }
 
 model user {
-  id            String      @id
+  id            String      @id @default(cuid())
   name          String
   email         String      @unique(map: "User_email_key")
   password      String
@@ -66,7 +66,7 @@ model user {
   accessLevelId String
   companyId     String
   createdAt     DateTime    @default(now())
-  updatedAt     DateTime
+  updatedAt     DateTime    @updatedAt
   interview     interview[]
   acesslevel    acesslevel  @relation(fields: [accessLevelId], references: [id], map: "User_accessLevelId_fkey")
   company       company     @relation(fields: [companyId], references: [id], map: "User_companyId_fkey")
@@ -85,7 +85,7 @@ model vacancy {
   status       String
   dateEnd      DateTime
   createdAt    DateTime      @default(now())
-  updatedAt    DateTime
+  updatedAt    DateTime      @updatedAt
   userId       String
   applications application[]
   user         user          @relation(fields: [userId], references: [id], map: "Vacancy_userId_fkey")
@@ -97,7 +97,7 @@ model application {
   id          String      @id @default(cuid())
   description String?
   createdAt   DateTime    @default(now())
-  updatedAt   DateTime
+  updatedAt   DateTime   @updatedAt
   candidateId String
   vacancyId   String
   candidate   candidate   @relation(fields: [candidateId], references: [id], map: "Application_candidateId_fkey")
@@ -116,7 +116,7 @@ model interview {
   interviewType String
   userId        String
   createdAt     DateTime    @default(now())
-  updatedAt     DateTime
+  updatedAt     DateTime    @updatedAt
   applicationId String
   candidate     application @relation(fields: [applicationId], references: [id], map: "Interview_applicationId_fkey")
   user          user        @relation(fields: [userId], references: [id], map: "Interview_userId_fkey")

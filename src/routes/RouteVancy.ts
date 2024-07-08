@@ -18,9 +18,9 @@ const DeleteVacancyService= new VacancyDeleteService(getewayData);
 
 const controllerVacancy = new VacancyController(GetAllVacancyService,GetOneVancayService,StoreVancyService,DeleteVacancyService);
 
-RouteCandidate.get('/all', controllerVacancy.getAll);
-RouteCandidate.get('/:vacancy_id', controllerVacancy.getOne);
-RouteCandidate.post('/register', controllerVacancy.store);
+RouteCandidate.get('/all',controllerVacancy.getAll);
+RouteCandidate.get('/:vacancy_id',controllerVacancy.getOne);
+RouteCandidate.post('/register',controllerVacancy.store);
 RouteCandidate.delete("/delete/:vacancy_id",controllerVacancy.delete);
 
 export default RouteCandidate;

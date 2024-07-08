@@ -31,12 +31,12 @@ export class UserDataBase implements UserGatewayInterface {
     }
   }
 
-  async store(params: User): Promise<Users> {
+  async store(params: InputUserDto): Promise<OutputUserDto> {
     const hashedPassword: string = bcrypt.hashSync(params.password, 8);
     params.password = hashedPassword;
 
     const create = await this.prismaClient.user.create({
-      data: params,
+      data: params
     });
     return create;
   }

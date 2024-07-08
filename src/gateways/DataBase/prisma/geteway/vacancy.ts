@@ -6,7 +6,7 @@ import { prismaClient } from "../../config";
 
 export default class vacancyGateway implements IVacancy {
 
-    async store(params: OutputDataVacancyDTO): Promise<OutputDataVacancyDTO> {
+    async store(params: IntputDataVacancyDTO): Promise<OutputDataVacancyDTO> {
         try {
             const vacancyCreate = await prismaClient.vacancy.create({
                 data: params,
