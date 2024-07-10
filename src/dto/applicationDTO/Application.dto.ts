@@ -1,13 +1,13 @@
 
 export interface IntputDataApplicationDTO{
-    description: string
+    description?: string
     candidateId: string
     vacancyId  : string
 }
 
 export interface OutputDataApplicationDTO{
     id: string;
-    description: string
+    description?: string
     candidateId: string
     vacancyId  : string
     createdAt: Date;

@@ -1,5 +1,4 @@
 import { IntputDataCandidateDTO, OutputDataCandidateDTO } from "../../../../dto/candidateDTO/Candidate.dto";
-import Candidate from "../../../../entity/Candidate";
 import ICandidate from "../../../adpters/ICandidate";
 import { prismaClient } from "../../config";
 
@@ -13,7 +12,7 @@ export default class CandidateGateway implements ICandidate {
         return candidateOne;
     }
 
-    async store(params:OutputDataCandidateDTO): Promise<OutputDataCandidateDTO>  {
+    async store(params:IntputDataCandidateDTO): Promise<OutputDataCandidateDTO>  {
 
         try {
             const candidateCreate = await prismaClient.candidate.create({

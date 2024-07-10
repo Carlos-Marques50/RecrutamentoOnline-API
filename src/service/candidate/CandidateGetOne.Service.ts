@@ -13,7 +13,7 @@ export default class CandidateGetOneSerive implements BaseService<string, Output
 
         const candidateOne = await this.candidateService.readOne(candidate_id);
         if (!candidateOne || candidateOne == null) {
-            return new TypeError("Usuario não encontrado", 404);
+            return new TypeError("Candidato não encontrado", 404);
         }
         return candidateOne;
     }
