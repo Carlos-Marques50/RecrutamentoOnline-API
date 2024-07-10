@@ -64,7 +64,7 @@ model user {
   password      String
   status        Boolean
   accessLevelId String
-  companyId     String
+  companyId     String 
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
   interview     interview[]
@@ -112,13 +112,11 @@ model interview {
   id            String      @id @default(cuid())
   dateTime      DateTime
   status        String
-  interviewee   Boolean
-  interviewType String
   userId        String
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
   applicationId String
-  candidate     application @relation(fields: [applicationId], references: [id], map: "Interview_applicationId_fkey")
+  application     application @relation(fields: [applicationId], references: [id], map: "Interview_applicationId_fkey")
   user          user        @relation(fields: [userId], references: [id], map: "Interview_userId_fkey")
 
   @@index([applicationId], map: "Interview_applicationId_fkey")

@@ -1,17 +1,36 @@
+import BaseModel from "../../../../base/model.base";
 import { IntputDataCandidateDTO, OutputDataCandidateDTO } from "../../../../dto/candidateDTO/Candidate.dto";
+import Application from "../../../../entity/Application";
+import Candidate from "../../../../entity/Candidate";
 import ICandidate from "../../../adpters/ICandidate";
 import { prismaClient } from "../../config";
 
 export default class CandidateGateway implements ICandidate {
 
-    async readOne(id: string): Promise<OutputDataCandidateDTO> {
+
+    async getApplication(numBi: string): Promise<(Application & BaseModel)[] | any  > {
+    
+        try {
+            const getApplication = await prismaClient.candidate.findUnique({
+                where: {num_bi: numBi},
+                include:{applications:true}
+            });
+           
+            return getApplication;
+        } catch (error) {
+            return error.message;
+        }
+
+    }
+
+    async readOne(id: string): Promise<OutputDataCandidateDTO | any> {
 
         const candidateOne = await prismaClient.candidate.findFirst({
             where: { id }
         });
         return candidateOne;
     }
-
+ 
     async store(params:IntputDataCandidateDTO): Promise<OutputDataCandidateDTO>  {
 
         try {

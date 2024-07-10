@@ -7,21 +7,32 @@ import { IApplication } from "../../../adpters/IApplication";
 
 export default class Aplication implements IApplication {
 
+
     async apply(applicationData: Application, candidateData: IntputDataCandidateDTO): Promise<Application & BaseModel> {
         try {
-         
             const result = await prismaClient.$transaction(async (prisma) => {
-             
-                const resultCandidate = await prisma.candidate.create({
-                    data: candidateData,
-                });  
-               
-                applicationData.candidateId = resultCandidate.id;
-   
+                // Verifica se o candidato já existe com base no e-mail ou outro identificador único
+                const existingCandidate = await prisma.candidate.findUnique({
+                    where: { email: candidateData.email }, // Supondo que o e-mail seja único
+                });
+    
+                let candidateId: string;
+    
+                if (existingCandidate) {
+                    candidateId = existingCandidate.id;
+                } else {
+                    const resultCandidate = await prisma.candidate.create({
+                        data: candidateData,
+                    });
+                    candidateId = resultCandidate.id;
+                }
+    
+                applicationData.candidateId = candidateId;
+    
                 const resultApplication = await prisma.application.create({
                     data: applicationData,
                 });
-
+    
                 return resultApplication;
             });
     

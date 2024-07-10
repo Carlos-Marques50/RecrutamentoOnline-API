@@ -6,5 +6,5 @@ import Candidate from "../../entity/Candidate";
 
 export interface IApplication extends BaseGateway<Application, Application & BaseModel>{
     apply(applicationData: Application, candidateData: Candidate ): Promise<Application & BaseModel> 
-
+   
 }

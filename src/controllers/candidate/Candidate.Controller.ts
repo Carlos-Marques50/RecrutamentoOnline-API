@@ -6,6 +6,7 @@ import CandidateGetOneService from "../../service/candidate/CandidateGetOne.Serv
 import CandidateStoreService from "../../service/candidate/CandidateStore.Service";
 import CandidateDeleteService from "../../service/candidate/CandidateDelete.Service";
 import CandidateSaveProfessionalResume from "../../service/candidate/CandidateSaveProfessionalResume.Service";
+import CandidateGetApplication from "../../service/candidate/CandidateGetApplication.Service";
 
 export default class CandidateController implements controller_base {
 
@@ -13,20 +14,23 @@ export default class CandidateController implements controller_base {
     private readonly CandidateGetOneService: CandidateGetOneService;
     private CandidateStoreService: CandidateStoreService;
     private readonly CandidateDeleteService: CandidateDeleteService;
-    private readonly CandidateSaveProfessionalResume: CandidateSaveProfessionalResume
+    private CandidateGetApplication: CandidateGetApplication;
+    private readonly CandidateSaveProfessionalResume: CandidateSaveProfessionalResume;
 
     constructor(
         CandidateGetAllService: CandidateGetAllService, 
         CandidateGetOneService: CandidateGetOneService, 
         CandidateStoreService: CandidateStoreService, 
         CandidateDeleteService: CandidateDeleteService,
+        CandidateGetApplication:CandidateGetApplication,
         CandidateSaveProfessionalResume: CandidateSaveProfessionalResume
     ) {
         this.CandidateGetAllService = CandidateGetAllService;
         this.CandidateGetOneService = CandidateGetOneService;
         this.CandidateStoreService = CandidateStoreService;
         this.CandidateDeleteService = CandidateDeleteService;
-        this.CandidateSaveProfessionalResume = CandidateSaveProfessionalResume
+        this.CandidateSaveProfessionalResume = CandidateSaveProfessionalResume;
+        this.CandidateGetApplication= CandidateGetApplication;
     }
 
     public store = async (req: Request, res: Response): Promise<Response> => {
@@ -94,6 +98,14 @@ export default class CandidateController implements controller_base {
 
         const serviceResult = await this.CandidateDeleteService.Execute(req.params.candidate_id);
 
+        if (serviceResult instanceof TypeError) {
+            return res.status(serviceResult.status).json(serviceResult.message);
+        }
+        return res.status(200).json(serviceResult);
+    }
+
+    public getCandidatehasApplication = async (req: Request, res: Response): Promise<Response> => {
+        const serviceResult = await this.CandidateGetApplication.Execute(req.params.num_bi);
         if (serviceResult instanceof TypeError) {
             return res.status(serviceResult.status).json(serviceResult.message);
         }
