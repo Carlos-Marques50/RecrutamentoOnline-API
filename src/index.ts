@@ -3,6 +3,7 @@ import RouteMain from "./routes/RouteMain";
 import * as dotenv from 'dotenv';
 import * as cors from "cors"
 import * as bcrypt from "bcrypt"
+import * as path from "path"
 
 dotenv.config();
 const app = express();
@@ -15,6 +16,7 @@ app.use(cors({
     allowedHeaders: ['Content-Type']
 }))
 
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 app.use(RouteMain);
 const port = process.env.PORT
 

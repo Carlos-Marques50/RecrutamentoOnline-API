@@ -81,7 +81,7 @@ model vacancy {
   requirements String
   category     String
   title        String        @unique(map: "Vacancy_title_key")
-  description  String?
+  description  String?        @db.Text
   status       String
   dateEnd      DateTime
   createdAt    DateTime      @default(now())

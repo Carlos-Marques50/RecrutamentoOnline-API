@@ -5,6 +5,7 @@ import TypeError from "../../shared/TypeError";
 import CandidateGetOneService from "../../service/candidate/CandidateGetOne.Service";
 import CandidateStoreService from "../../service/candidate/CandidateStore.Service";
 import CandidateDeleteService from "../../service/candidate/CandidateDelete.Service";
+import CandidateSaveProfessionalResume from "../../service/candidate/CandidateSaveProfessionalResume.Service";
 
 export default class CandidateController implements controller_base {
 
@@ -12,12 +13,20 @@ export default class CandidateController implements controller_base {
     private readonly CandidateGetOneService: CandidateGetOneService;
     private CandidateStoreService: CandidateStoreService;
     private readonly CandidateDeleteService: CandidateDeleteService;
+    private readonly CandidateSaveProfessionalResume: CandidateSaveProfessionalResume
 
-    constructor(CandidateGetAllService: CandidateGetAllService, CandidateGetOneService: CandidateGetOneService, CandidateStoreService: CandidateStoreService, CandidateDeleteService: CandidateDeleteService) {
+    constructor(
+        CandidateGetAllService: CandidateGetAllService, 
+        CandidateGetOneService: CandidateGetOneService, 
+        CandidateStoreService: CandidateStoreService, 
+        CandidateDeleteService: CandidateDeleteService,
+        CandidateSaveProfessionalResume: CandidateSaveProfessionalResume
+    ) {
         this.CandidateGetAllService = CandidateGetAllService;
         this.CandidateGetOneService = CandidateGetOneService;
         this.CandidateStoreService = CandidateStoreService;
         this.CandidateDeleteService = CandidateDeleteService;
+        this.CandidateSaveProfessionalResume = CandidateSaveProfessionalResume
     }
 
     public store = async (req: Request, res: Response): Promise<Response> => {
@@ -40,6 +49,22 @@ export default class CandidateController implements controller_base {
             return res.status(serviceResult.status).json(serviceResult.message);
         }
         return res.status(200).json({ Candidate: serviceResult });
+    }
+
+    public uploadFile = async (req: Request, res: Response) => {
+        if (!req.params.id) return  res.status(400).json({ error: true, message: 'Forneça o `id` do Candidato.' });
+        if (req.file) {
+
+            const useCaseResult = await this.CandidateSaveProfessionalResume.Execute(req.file.filename, req.params.id)
+            console.log(useCaseResult);
+            
+            if (useCaseResult instanceof TypeError) 
+                return res.status(useCaseResult.status).json({ error: true, message: useCaseResult.message });
+
+            return res.json({ error: false, message: 'Arquivo carregado com sucesso!', data: req.file });
+        } else {
+            return res.status(400).json({ error: true, message: 'Nenhum arquivo foi carregado.' });
+        }
     }
 
     public getAll = async (req: Request, res: Response): Promise<Response> => {

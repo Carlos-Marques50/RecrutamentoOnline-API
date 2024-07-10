@@ -4,7 +4,7 @@ import { prismaClient } from "../../config";
 
 export default class CandidateGateway implements ICandidate {
 
-    async readOne(id: string): Promise<OutputDataCandidateDTO | any> {
+    async readOne(id: string): Promise<OutputDataCandidateDTO> {
 
         const candidateOne = await prismaClient.candidate.findFirst({
             where: { id }
@@ -33,7 +33,9 @@ export default class CandidateGateway implements ICandidate {
     }
 
     async update(params: IntputDataCandidateDTO, id: string): Promise<OutputDataCandidateDTO> {
-        throw new Error("Method not implemented.");
+        return await prismaClient.candidate.update({
+            where: { id }, data: params
+        })
     }
 
     async delete(id: string): Promise<Boolean> {
