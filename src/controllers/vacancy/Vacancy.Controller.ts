@@ -28,6 +28,9 @@ export default class VacancyController implements controller_base {
             dateEnd: req.body.dateEnd,
         }
 
+        console.log(DataVacancy);
+        
+
         /*
         Contribuição aberta:
         -Validação dos dados vindo da Chamada da API
